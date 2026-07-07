@@ -5,17 +5,83 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Joining server...</title>
 <style>
-  body { background: #1e1f22; color: #e8e9eb; font-family: sans-serif; text-align: center; padding-top: 3rem; }
-  code { background: #111214; padding: 0.3rem 0.6rem; border-radius: 4px; }
-  a { color: #43b581; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient(circle at 50% 0%, #23262b 0%, #1a1c1f 60%, #131417 100%);
+    color: #e8e9eb;
+    font-family: -apple-system, "Segoe UI", Roboto, sans-serif;
+    text-align: center;
+    padding: 1.5rem;
+  }
+  .card {
+    background: #1e1f22;
+    border: 1px solid #2b2d31;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    max-width: 440px;
+    width: 100%;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+  h1 { font-size: 1.3rem; margin: 0 0 0.5rem; font-weight: 700; }
+  .spinner {
+    width: 28px; height: 28px;
+    border: 3px solid #2b2d31;
+    border-top-color: #43b581;
+    border-radius: 50%;
+    margin: 1rem auto;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  p { color: #b5bac1; font-size: 0.95rem; line-height: 1.5; margin: 0.6rem 0; }
+  .fallback {
+    display: inline-block;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1.1rem;
+    background: #43b581;
+    color: #101214;
+    font-weight: 600;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+  code {
+    display: block;
+    background: #111214;
+    color: #43b581;
+    padding: 0.6rem 0.9rem;
+    border-radius: 8px;
+    margin: 0.6rem 0;
+    font-size: 0.9rem;
+    word-break: break-all;
+  }
+  .warning {
+    margin-top: 1.5rem;
+    padding: 0.8rem 1rem;
+    background: rgba(240, 178, 50, 0.12);
+    border: 1px solid rgba(240, 178, 50, 0.35);
+    border-radius: 10px;
+    color: #f0b232;
+    font-size: 0.85rem;
+  }
 </style>
 </head>
 <body>
-  <p id="msg">Opening Steam...</p>
-  <p>If nothing happens, <a id="link" href="#">click here</a>.</p>
-  <p>Or paste this into the game console:</p>
-  <code id="cmd"></code>
-  <p style="color: #f0b232; margin-top: 2rem;">⚠️ Project Zomboid doesn't save your login - remember your username &amp; password, you'll need to type them in every time.</p>
+  <div class="card">
+    <div class="icon">🧟</div>
+    <h1 id="msg">Opening Steam...</h1>
+    <div class="spinner" id="spinner"></div>
+    <p>If nothing happens automatically:</p>
+    <a class="fallback" id="link" href="#">Open Steam manually</a>
+    <p>Or paste this into the game console:</p>
+    <code id="cmd"></code>
+    <div class="warning">⚠️ Project Zomboid doesn't save your login — remember your username &amp; password, you'll need to type them in every time.</div>
+  </div>
 
   <script>
     const params = new URLSearchParams(window.location.search);
@@ -27,6 +93,7 @@
       window.location.href = steamUri;
     } else {
       document.getElementById("msg").textContent = "No server address provided.";
+      document.getElementById("spinner").style.display = "none";
     }
   </script>
 </body>
