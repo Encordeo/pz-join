@@ -78,7 +78,7 @@
     <div class="spinner" id="spinner"></div>
     <p>If nothing happens automatically:</p>
     <a class="fallback" id="link" href="#">Open Steam manually</a>
-    <p>Or paste this into the game console:</p>
+    <p>Or connect manually with this server address:</p>
     <code id="cmd"></code>
     <div class="warning">⚠️ Project Zomboid doesn't save your login — remember your username &amp; password, you'll need to type them in every time.</div>
   </div>
@@ -89,7 +89,7 @@
     if (server) {
       const steamUri = "steam://connect/" + server;
       document.getElementById("link").href = steamUri;
-      document.getElementById("cmd").textContent = "connect " + server;
+      document.getElementById("cmd").textContent = server;
       window.location.href = steamUri;
     } else {
       document.getElementById("msg").textContent = "No server address provided.";
